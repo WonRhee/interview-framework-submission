@@ -67,9 +67,9 @@ class ExampleModel extends Model
      *
      * @param int $id example id
      *  
-     * @return array example data
+     * @return ExampleModel example data
      */
-    public function get(int $id): array
+    public function get(int $id): ExampleModel
     {
         $sql = '
             SELECT
@@ -82,11 +82,21 @@ class ExampleModel extends Model
             WHERE
                 example_id = ?';
 
-        return $this->db->select([
+        $result = $this->db->select([
             'title'  => 'Get example data',
             'sql'    => $sql,
             'inputs' => [$id]
         ]);
+
+        // Set property values if exists
+        foreach ($result as $key => $value) {
+            if (property_exists($this, $key)) {
+                $func = "set" . ucfirst($key);
+                $this->$func($value);
+            }
+        }
+        
+        return $this;
     }
 
     /**
