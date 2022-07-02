@@ -11,6 +11,57 @@ use Mini\Model\Model;
  */
 class ExampleModel extends Model
 {
+    private int $id;
+    private string $created;
+    private string $code;
+    private string $description;
+
+    //-----------------------------------
+    // Getters
+    //-----------------------------------
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getCreated(): string
+    {
+        return $this->created;
+    }
+
+    public function getCode(): string
+    {
+        return $this->code;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    //-----------------------------------
+    // Setters
+    //-----------------------------------
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
+    public function setCreated(string $created): void
+    {
+        $this->created = $created;
+    }
+
+    public function setCode(string $code): void
+    {
+        $this->code = $code;
+    }
+
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
+    }
+
     /**
      * Get example data by ID.
      *
