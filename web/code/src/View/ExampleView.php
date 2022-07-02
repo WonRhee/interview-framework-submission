@@ -32,20 +32,18 @@ class ExampleView
     /**
      * Get the example view to display its data.
      * 
-     * @param int $id example id
+     * @param ExampleModel $exampleModel    find by example model
      * 
      * @return string view template
      *
-     * @throws BadInputException if no example data is returned
+     * @throws BadInputException if example model does not have ID set
      */
-    public function get(int $id): string
+    public function get(ExampleModel $exampleModel)
     {
-        $data = $this->model->get($id);
-
-        if (!$data) {
-            throw new BadInputException('Unknown example ID');
+        if ($exampleModel->getId() < 1) {
+            throw new BadInputException('Example data must have ID set.');
         }
 
-        return view('app/example/detail', $data);
+        return view('app/example/detail', ['data' => $exampleModel]);
     }
 }

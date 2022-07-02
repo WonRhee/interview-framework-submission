@@ -20,8 +20,9 @@ class ExampleViewTest extends BaseCase
     public function testGet(): void
     {
         $this->mockDatabaseGetProcess();
+        $model = $this->getClass('Example\Model\ExampleModel')->get(1);
 
-        $view = $this->getClass('Example\View\ExampleView')->get(1);
+        $view = $this->getClass('Example\View\ExampleView')->get($model);
 
         $this->assertNotEmpty($view);
         $this->assertIsString($view);
@@ -41,8 +42,8 @@ class ExampleViewTest extends BaseCase
         $this->expectException(BadInputException::class);
         
         $this->mockDatabaseGetUnkownIdProcess();
-
-        $this->getClass('Example\View\ExampleView')->get(2);
+        $model = $this->getClass('Example\Model\ExampleModel')->get(2);
+        $this->getClass('Example\View\ExampleView')->get($model);
     }
 
     /**

@@ -40,7 +40,8 @@ class ExampleViewTest extends BaseCase
             ]
         ]);
 
-        $view = $this->getClass('Example\View\ExampleView')->get(1);
+        $model = $this->getClass('Example\Model\ExampleModel')->get(1);
+        $view = $this->getClass('Example\View\ExampleView')->get($model);
 
         $this->assertNotEmpty($view);
         $this->assertIsString($view);
@@ -58,7 +59,7 @@ class ExampleViewTest extends BaseCase
     public function testGetErrorsOnUnknownExampleId(): void
     {
         $this->expectException(BadInputException::class);
-
-        $this->getClass('Example\View\ExampleView')->get(1);
+        $model = $this->getClass('Example\Model\ExampleModel')->get(1);
+        $this->getClass('Example\View\ExampleView')->get($model);
     }
 }

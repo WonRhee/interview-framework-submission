@@ -11,10 +11,10 @@ use Mini\Model\Model;
  */
 class ExampleModel extends Model
 {
-    private int $id;
-    private string $created;
-    private string $code;
-    private string $description;
+    private int $id = 0;
+    private string $created = '';
+    private string $code = '';
+    private string $description = '';
 
     //-----------------------------------
     // Getters
@@ -67,7 +67,7 @@ class ExampleModel extends Model
      *
      * @param int $id example id
      *  
-     * @return ExampleModel example data
+     * @return ExampleModel example model instance
      */
     public function get(int $id): ExampleModel
     {
@@ -88,7 +88,7 @@ class ExampleModel extends Model
             'inputs' => [$id]
         ]);
 
-        // Set property values if exists
+        // Map DB row to properties
         foreach ($result as $key => $value) {
             if (property_exists($this, $key)) {
                 $func = "set" . ucfirst($key);
@@ -106,9 +106,9 @@ class ExampleModel extends Model
      * @param string $code        example code
      * @param string $description example description
      *  
-     * @return int example id
+     * @return ExampleModel example model instance
      */
-    public function create(string $created, string $code, string $description): int
+    public function create(string $created, string $code, string $description): ExampleModel
     {
         $sql = '
             INSERT INTO
@@ -133,6 +133,7 @@ class ExampleModel extends Model
 
         $this->db->validateAffected();
 
-        return $id;
+        $model = $this->get($id);
+        return $model;
     }
 }
