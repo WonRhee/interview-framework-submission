@@ -1,0 +1,38 @@
+<div class="row">
+	<div class="col">
+		<form id="addition-form">
+			<div class="form-group">
+				<label for="addition-x">X</label>
+				<input type="text" id="addition-x" class="form-control" name="x" placeholder="First number">
+			</div>
+
+			<div class="form-group">
+				<label for="addition-y">Y</label>
+				<input type="text" id="addition-y" class="form-control" name="y" placeholder="Second number">
+			</div>
+
+			<button type="submit" class="btn btn-primary">Add X and Y</button>
+		</form>
+
+		<div id="addition-view"></div>
+
+		<script>
+			document.querySelector('#addition-form').onsubmit = function(e) {
+				e.preventDefault();
+
+				const data = new FormData(e.target);
+
+				// Ensure every input has a value
+				for (var [key, value] of data.entries()) { 
+					if (!value) {
+						document.querySelector('#addition-form input[name="' + key + '"]').focus();
+						return;
+					}
+				}
+
+				sendPost('addition/add', data, view => document.querySelector('#addition-view').innerHTML = view);
+			};
+		</script>
+	</div>
+
+</div>
